@@ -8,6 +8,8 @@
 
     export let geojson;
     export let filters;
+
+    console.log( filters.site_filters)
     
     //countValue is map object stored in the store.js
     let map;
@@ -16,11 +18,14 @@
     //Prepare data to be filtered by geojson object
     function dataFilter(feature) {
         //Site Filters
-        let site_remain = true;
-        if (filters.site_filters.includes(feature.properties.db) ) {
-            site_remain = false;
-        } else {
+        let site_remain = true; //Assume it stays
+        if(filters.site_filters.length === 0){
             site_remain = true;
+        }
+        else if (filters.site_filters.includes(feature.properties.db) ) {
+            site_remain = true;
+        } else {
+            site_remain = false;
         }
 
         //STEC Filters
@@ -29,7 +34,7 @@
             tec_remain=true;
         }else{
             filters.tec_filters.forEach( function(tec_filter){
-                if( feature.properties[tec_filter] === true ){
+                if( feature.properties[tec_filter] === "Y" ){
                     tec_remain = true
                 }
             })
@@ -40,6 +45,7 @@
 
     //Create new filtered data -> Dispatch this to place-holder
     let map_data = geojson.filter( dataFilter );
+    console.log( map_data.length)
 
     //Filter with text Bar
     if ( filters.text_filter.length > 0) {

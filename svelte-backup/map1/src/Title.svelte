@@ -35,7 +35,7 @@
 		background: rgba(255,255,255,0.8);
 		z-index: 3;
         border-radius: 4px;
-        color:var(--blue);
+        color:#e3be3a;
         font-size: 10pt;
         font-weight: bold;
         padding:3px;

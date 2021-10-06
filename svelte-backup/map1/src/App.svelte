@@ -17,9 +17,9 @@
 	let active_data;
 	let completed_Data;
 	let all_data;
-	const data_url_working = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Working_R2.geojson";
-	const data_url_retired = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Retired_R2.geojson";
-	const data_url_completed = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Completed_R2.geojson";
+	const data_url_working = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Working_R3.geojson";
+	const data_url_retired = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Retired_R3.geojson";
+	const data_url_completed = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Completed_R3.geojson";
 
 	onMount(async () => {
 		const res = await fetch( data_url_working );
@@ -46,7 +46,6 @@
 
 			return a < b ? -1 : a > b ? 1 : 0;
 		});
-
 	});
 
 	//Filter Function. Filter goes to GeoJSON.svelte
@@ -62,7 +61,7 @@
 	//Use these for creating buttons and hover pop up
 	let tecs = [
 		{value:"STECAccess",name:"Public Access" , source:"https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECAccess.svg" ,desc:"Improve direct access to the water and create linkages to other recreational areas, as well as provide increased opportunities for fishing, boating, swimming, hiking, education, or passive recreation."},
-		{value:"STECAcquisition",name:"Acquisition", source: "https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECAcquisition.svg" ,desc:"Protect ecologically valuable coastal lands throughout the Hudson-Raritan Estuary from future development through land acquisition."},
+		{value:"Acquired",name:"Acquisition", source: "https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECAcquisition.svg" ,desc:"Protect ecologically valuable coastal lands throughout the Hudson-Raritan Estuary from future development through land acquisition."},
 		{value:"STECEelgrass",name:"Eelgrass Beds" , source:"https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECEelgrass.svg" ,desc:"Establish eelgrass beds at several locations in the HRE study area."},
 		{value:"STECForests",name:"Coastal and Maritime Forests", source: "https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECForests.svg" ,desc:"Create a linkage of forests accessible to avian migrants and dependent plant communities."},
 		{value:"STECAquaticHab",name:"Habitat for Fish, Crab, and Lobsters" , source:"https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECAquaticHab.svg" ,desc:"Create functionally related habitats in each of the eight regions of the Hudson-Raritan Estuary."},
@@ -75,7 +74,6 @@
 		{value:"STECWetland",name:"Wetlands" , source:"https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECWetland.svg" ,desc:"Create and restore coastal and freshwater wetlands at a rate exceeding the annual loss or degradation, to produce a net gain in acreage."},
 	]
       
-
 	//Handle Site Filters
 	function clickHandleSite(e){
 		//Get Clicked Element value
@@ -123,7 +121,6 @@
 		filters.tec_filters.forEach(function(filter){
 			let clicked_button = document.getElementById( filter );
 			clicked_button.parentNode.className = "tec-buttons active"
-			console.log(clicked_button)
 		})
 	}
 
@@ -179,8 +176,6 @@
 	
 	function handleClick(e){
 		active_data = null;
-		//let active = document.getElementsByClassName("active")[0];
-		//active.className.baseVal = "leaflet-interactive"
 	}
 
 </script>
@@ -229,8 +224,8 @@
 		<!-- SITE BUTTONS-->
 		<div class="site-filters r">	
 			<button type="button" class="site-buttons" id="Working" on:click={e=>{clickHandleSite(e)}} value="Working"> <div class="legend-item" style="width:100% "><div style="width:15px;height:15px;background: var(--blue);margin-top: 5px;"></div> <span class="t2 site-text Working">Opportunities</span></div>  </button>
-			<button type="button" class="site-buttons" id="Retired" on:click={e=>{clickHandleSite(e)}} value="Retired">  <div class="legend-item" style="width:100% "><div style="width:15px;height:15px;background: var(--green);margin-top: 5px;"></div> <span class="t2 site-text Retired">Former Opportunities</span> </div></button>
-			<button type="button" class="site-buttons" id="Completed" on:click={e=>{clickHandleSite(e)}} value="Completed"> <div class="legend-item" style="width:100% "> <div style="width:15px;height:15px;background: var(--green);margin-top: 5px;border-radius: 50%;"></div> <span class="t2 site-text Completed">Completed Sites</span></div></button>
+			<button type="button" class="site-buttons" id="Completed" on:click={e=>{clickHandleSite(e)}} value="Completed"> <div class="legend-item" style="width:100% "> <div style="width:15px;height:15px;background: var(--green);margin-top: 5px;border-radius: 50%;"></div> <span class="t2 site-text Completed">Completed Projects</span></div></button>
+			<button type="button" class="site-buttons" id="Retired" on:click={e=>{clickHandleSite(e)}} value="Retired">  <div class="legend-item" style="width:100% "><div style="width:15px;height:15px;background: var(--green);margin-top: 5px;opacity:0.5;"></div> <span class="t2 site-text Retired">Former Opportunities</span> </div></button>
 		</div>
 
 		<!-- Search Input Box-->

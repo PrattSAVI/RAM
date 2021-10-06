@@ -10,7 +10,7 @@
     <div class="grid-container">
     {#each tecs as tec}
         <div class='grid-item'>
-            <img alt={tec.value} style="width:30px" src= {tec.source}/>
+            <img alt={tec.value} style="width:35px" src= {tec.source}/>
             <div style="margin-left:5px">
                 <div id="hover-title">{tec.name}</div>
                 <div id="hover-text">{tec.desc}</div>
@@ -24,22 +24,24 @@
 <style>
 
     #hover-title{
-        font-size: 7pt;
+        font-size: 9pt;
         font-weight: 700;
-        color:#666
+        color:#666;
+        line-height: 0.9rem;
     }
 
     #hover-text{
-        font-size: 7pt;
+        font-size: 9pt;
         font-weight: 400;
-        color:#888
+        color:#888;
+        line-height: 0.85rem;
     }
 
     .hoverup{
-        padding: 5px 10px 15px 10px;
+        padding: 5px 20px 15px 10px;
         position: absolute;
         background: white;
-        max-width: 450px;
+        max-width: 500px;
         top:100px;
         left:310px;
         border-radius: 8px;
@@ -53,14 +55,21 @@
         flex-direction: column;
         flex-wrap: wrap;
         margin-top: 10px;
-        max-height: 500px;
+        max-height: 650px;
     }
 
     .grid-item {
         display: grid;
         max-width: 48%;
-        grid-template-columns: 0.1fr 1fr;
-        padding: 3px;
+        grid-template-columns: 0.3fr 1fr;
+        padding-bottom: 8px;
+        padding-top: 4px;
+        padding-right: 20px;
     }
+
+    img{
+        margin-top: 0px;
+    }
+
 
 </style>

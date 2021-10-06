@@ -11,7 +11,7 @@
 
     let columns = [
         //{label:"Planning Region",name:"PlanRegion"},
-        {label:"Acerage",name:"Acerage"},
+        {label:"Acerage",name:'Acreage'},
         {label:"Ownership",name:"Ownership"},
         {label:"Protection Status",name:"ProtectionCat"},
         {label:"Acquisition Status",name:"AcquisitionCat"},
@@ -49,7 +49,7 @@
     //Use these for creating buttons and hover pop up
 	let tecs = [
 		{value:"STECAccess",name:"Public Access" , source:"https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECAccess.svg" ,desc:"Improve direct access to the water and create linkages to other recreational areas, as well as provide increased opportunities for fishing, boating, swimming, hiking, education, or passive recreation."},
-		{value:"STECAcquisition",name:"Acquisition", source: "https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECAcquisition.svg" ,desc:"Protect ecologically valuable coastal lands throughout the Hudson-Raritan Estuary from future development through land acquisition."},
+		{value:"Acquired",name:"Acquisition", source: "https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECAcquisition.svg" ,desc:"Protect ecologically valuable coastal lands throughout the Hudson-Raritan Estuary from future development through land acquisition."},
 		{value:"STECEelgrass",name:"Eelgrass Beds" , source:"https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECEelgrass.svg" ,desc:"Establish eelgrass beds at several locations in the HRE study area."},
 		{value:"STECForests",name:"Coastal and Maritime Forests", source: "https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECForests.svg" ,desc:"Create a linkage of forests accessible to avian migrants and dependent plant communities."},
 		{value:"STECAquaticHab",name:"Habitat for Fish, Crab, and Lobsters" , source:"https://raw.githubusercontent.com/PrattSAVI/RAM/main/img/iconsSv/STECAquaticHab.svg" ,desc:"Create functionally related habitats in each of the eight regions of the Hudson-Raritan Estuary."},
@@ -66,15 +66,14 @@
     // Ace sheet connects to region reports
     // Direct links go to the links themselves.
     function replaceRegion( active_data ){
-
         // If Link To field is ACE Sheet
-        if (active_data['Link to'] === "ACE Sheet"){
+        if ( active_data['Link_to'] === "ACE Sheet" ){
             let filtered_ace = ace.filter( function(d){
                 return d.region === active_data['PlanRegion']
             })
             return filtered_ace[0].link
-        }else if ( active_data['Link to'].includes("http") ){
-            return active_data['Link to'];
+        }else if ( active_data['Link_to'].includes("http") ){
+            return active_data['Link_to'];
         }else{
             return null;
         }
@@ -83,10 +82,9 @@
 
     //filters TEC list by selected, active_data
     function findtecs(active_data){
-
         let site_tecs = []
         tecs.forEach( function(tec){
-            if (active_data[ tec.value ] == true ){
+            if (active_data[ tec.value ] == "Y" ){
                 site_tecs.push( tec )
             }
         })
@@ -99,12 +97,27 @@
         }
     }
 
+    function findtecs_Comp(active_data){
+        let site_tecs = []
+        tecs.forEach( function(tec){
+            if (active_data[ "Primary_TEC"] == tec.value ){
+                site_tecs.push( tec )
+            }
+        })
+
+        if (site_tecs.length > 0){
+            return site_tecs;
+        }else{
+            return null;
+        }
+    }
+
 </script>
 
 
 {#if active_data}
 
-    {#if active_data.Photo}
+    {#if active_data.Photo == "Y"}
         <div class="this_rect">
             <img alt={active_data.CRPID} src={photo_link} />
         </div>
@@ -116,8 +129,7 @@
             <p><span id='info-title' style="color:var(--blue)">{active_data.SiteLabel}</span></p>
 
             {#if findtecs(active_data) }
-                <div>
-
+                <div style="margin-bottom:15px">
                     <p class="t3">Target Ecosystem Characteristics:</p>
                     <div class="tec-logos r">
                         {#each findtecs(active_data) as tecs }
@@ -144,6 +156,18 @@
         {#if active_data.db == "Retired"}
             <p><span id='info-title' style="color:var(--green)">{active_data.SiteLabel}</span></p>
 
+            {#if findtecs(active_data) }
+                <div style="margin-bottom:15px">
+                    <p class="t3">Target Ecosystem Characteristics:</p>
+                    <div class="tec-logos r">
+                        {#each findtecs(active_data) as tecs }
+                                <img alt={tecs.value} style="width:35px" src= {tecs.source}/>
+                        {/each}
+                    </div>
+                </div>
+
+            {/if}
+
             {#each columns as col }
                 {#if active_data[col.name] }
                     <p><strong> {col.label}: </strong> {active_data[col.name]}</p>
@@ -155,6 +179,18 @@
         {#if active_data.db == "Completed"}
             <p><span id='info-title' style="color:var(--green)">{active_data.SiteName}</span></p>
 
+            {#if findtecs_Comp(active_data) }
+                <div style="margin-bottom:15px">
+                    <p class="t3">Target Ecosystem Characteristics:</p>
+                    <div class="tec-logos r">
+                        {#each findtecs_Comp(active_data) as tecs }
+                                <img alt={tecs.value} style="width:35px" src= {tecs.source}/>
+                        {/each}
+                    </div>
+                </div>
+
+            {/if}
+        
             {#each comp_columns as col }
                 {#if active_data[col.name] }
                     <p><strong> {col.label}: </strong> {active_data[col.name]}</p>
@@ -167,7 +203,7 @@
 
     <div class="detail">
         <span class="t2" style="color:var(--blue)">About the Map</span>
-        <p>The <a href="https://www.hudsonriver.org/article/hrecrp">Comprehensive Restoration Plan</a> (CRP) is a blueprint to protect existing habitat and restore or enhance ecological characteristics of the Hudson-Raritan Estuary.  The CRP is organized around 12 Target Ecosystem Characteristics (TECs) for which measurable restoration goals were set for both 2020 and 2050.  These targets represent what is desirable and achievable and focus on the specific habitat types, support structures, and public health and social values that are key to a healthy estuary.
+        <p>The <a target="_blank" href="https://www.hudsonriver.org/article/hrecrp">Comprehensive Restoration Plan</a> (CRP) is a blueprint to protect existing habitat and restore or enhance ecological characteristics of the Hudson-Raritan Estuary.  The CRP is organized around 12 Target Ecosystem Characteristics (TECs) for which measurable restoration goals were set for both 2020 and 2050.  These targets represent what is desirable and achievable and focus on the specific habitat types, support structures, and public health and social values that are key to a healthy estuary.
         <br><br>The restoration site opportunities compiled in this map represent an extensive research and nomination process conducted by HEP’s Restoration Work Group and the US Army Corps of Engineers. HEP partners report the completed restoration projects on an annual basis with earlier projects compiled by Alderson and Bowers, 2012.</p>
         
         <div class="logos">
@@ -179,8 +215,10 @@
             </div>
         </div>
 
-        <br>
-        <p><strong>Contact:&nbsp;</strong>istinnette@hudsonriver.org</p>
+        <div>        
+            <p><strong>Contact:&nbsp;</strong>istinnette@hudsonriver.org</p>
+        </div>
+
     </div>
 
 {/if}
@@ -195,10 +233,9 @@
     }
 
     .logos{
-        margin-top:15px;
+        margin-top:20px;
         margin-bottom: 15px;
+        height:60px;
     }
-
-
 
 </style>
