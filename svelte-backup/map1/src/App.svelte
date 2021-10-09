@@ -17,9 +17,9 @@
 	let active_data;
 	let completed_Data;
 	let all_data;
-	const data_url_working = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Working_R3.geojson";
-	const data_url_retired = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Retired_R3.geojson";
-	const data_url_completed = "https://raw.githubusercontent.com/PrattSAVI/RAM/main/data/Completed_R3.geojson";
+	const data_url_working = "https://raw.githubusercontent.com/HudsonRiverFoundation/RAM-Data/main/Working_R3.geojson";
+	const data_url_retired = "https://raw.githubusercontent.com/HudsonRiverFoundation/RAM-Data/main/Retired_R3.geojson";
+	const data_url_completed = "https://raw.githubusercontent.com/HudsonRiverFoundation/RAM-Data/main/Completed_R3.geojson";
 
 	onMount(async () => {
 		const res = await fetch( data_url_working );
