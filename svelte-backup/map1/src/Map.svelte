@@ -18,6 +18,7 @@
 
   L.tileLayer(tileURL, {
     maxZoom: 18,
+    minZoom: 9,
     zoomControl:false,
     attribution:'Design by <a href="https://commons.pratt.edu/savi/">SAVI</a>, Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
   }).addTo(map);

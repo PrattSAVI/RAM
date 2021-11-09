@@ -106,14 +106,16 @@
         }
 
         //STEC Filters
+        
         let tec_remain = false;
         if (filters.tec_filters.length === 0){
             tec_remain=true;
         }else{
-            tec_remain=false;
             filters.tec_filters.forEach(function(filter){
-                if (feature.properties['Primary TEC'] === filter){
+                if (feature.properties['Primary_TEC'] === filter){
                     tec_remain=true;
+                }else{
+                    tec_remain=false;
                 }
             })
         }
@@ -142,7 +144,7 @@
     }
 
     function getRadius(d) {
-        return String(d) == filters.active ? 10 : 2.5;
+        return String(d) == filters.active ? 10 : 3;
     }
 
     function style(feature) {
