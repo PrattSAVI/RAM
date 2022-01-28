@@ -20,6 +20,13 @@ a:hover {
     text-decoration: none;
 }
 
+.site-credit {
+    margin-top: 0px;
+    margin-left: 5px;
+    color: #888;
+    font-size: 11px;
+}
+
 
 /*Import Tisa Sans*/
 
@@ -168,7 +175,6 @@ h1 {
     height: auto;
     max-height: 275px;
     overflow: hidden;
-    margin-bottom: 15px;
 }
 
 img {
