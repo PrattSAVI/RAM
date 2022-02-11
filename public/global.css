@@ -5,6 +5,28 @@
     --green: #79BB43;
 }
 
+.modal {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 10000000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-view {
+    visibility: visible;
+}
+
+.modal-hide {
+    visibility: hidden;
+}
+
 p {
     margin: 5px;
     line-height: 1.5;
